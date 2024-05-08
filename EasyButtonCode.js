@@ -14,7 +14,7 @@ Qualtrics.SurveyEngine.addOnload(function () {
     applyButtons.forEach(function(button) {
         const buttonText = button.textContent.trim();
         console.log(buttonText);
-        fetch("https://newdev.sjsu.edu/education/easybutton/test.cs")
+        fetch("https://newdev.sjsu.edu/education/easybutton/test.csv")
         .then(response => {
             if (!response.ok) {
                 throw new Error("Unable to connect to test.csv ensure that test.csv is located at https://newdev.sjsu.edu/education/easybutton/test.csv");
