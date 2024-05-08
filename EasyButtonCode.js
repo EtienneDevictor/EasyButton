@@ -3,17 +3,17 @@ Qualtrics.SurveyEngine.addOnload(function () {
     // console.log("logging new save");
     var questionContainer = this.getQuestionContainer();
     
-    // Setting Anchor tags to redirect 
-    var anchorTags = questionContainer.querySelectorAll('a');
+    // Setting Anchor tags (links) to redirect to new tab 
+    var anchorTags = questionContainer.querySelectorAll('a'); 
     anchorTags.forEach(function(anchorTag) {
-        anchorTag.setAttribute('target', '_blank');
+        anchorTag.setAttribute('target', '_blank'); 
     });
     
-    // Reset the button on click
+    // Reset the button onClick to deep-link from csv
     var applyButtons = questionContainer.querySelectorAll("#deeplink");
     applyButtons.forEach(function(button) {
         const buttonText = button.textContent.trim();
-        console.log(buttonText);
+        // console.log(buttonText);
         fetch("https://newdev.sjsu.edu/education/easybutton/test.csv")
         .then(response => {
             if (!response.ok) {
@@ -26,17 +26,17 @@ Qualtrics.SurveyEngine.addOnload(function () {
         })
         .then(data => {
             for (var i = 0; i < data.length; i = i + 3) {
-                console.log(data[i].trim());
+                // console.log(data[i].trim());
                 if (data[i].trim() === buttonText) { // Compare button text with data[i]
                     var dateString = data[i + 2];
                     var parts = dateString.split('/');
                     var formattedDate = new Date(parts[2], parts[0] - 1, parts[1]).getTime();
                     var currentDate = Date.now() ;
                     if (formattedDate > currentDate) {
-						console.log("DateString:" ,dateString);
-						console.log("ButtonText:", buttonText);
+						//console.log("DateString:" ,dateString);
+						//console.log("ButtonText:", buttonText);
 						const newContent = buttonText + ": Opens " + dateString;
-						console.log(newContent);
+						//console.log(newContent);
                         button.textContent = newContent;
                     } else {
 						console.log(data[i+1]);
@@ -44,8 +44,8 @@ Qualtrics.SurveyEngine.addOnload(function () {
                             window.open(data[i + 1], '_blank');
                         }
                     }   
-                    console.log(currentDate);
-                    console.log(formattedDate);
+                    //console.log(currentDate);
+                    //console.log(formattedDate);
                     return;
                 }
             }
